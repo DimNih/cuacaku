@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Cuaca</title>
+    <link rel="stylesheet" href="src/css/main.css?v=2.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+</head>
+<body>
+    <!-- Header (Nav) -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" id="about-link">About</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <!-- Modal -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>BACA!!</h2>
+            <p>Dibuat Oleh Dimas Erlansyah Dari SMK CIBITUNG 1<br>
+                Dibuatnya ini Untuk Mempermudah Pengguna Untuk<br>
+             Mencari Cuaca Pada Daerahnya/Kota<br><br>
+            note: <br>
+
+            Web ini hanya bisa melacak Lokasi Di Wilayah Indonesia Saja!
+            </p>
+        </div>
+    </div>
+    
+    <script>
+const aboutLink = document.getElementById("about-link");
+const aboutModal = document.getElementById("about-modal");
+const closeBtn = document.querySelector(".close-btn");
+
+aboutLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    aboutModal.style.display = "block";
+});
+
+closeBtn.addEventListener("click", () => {
+    aboutModal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === aboutModal) {
+        aboutModal.style.display = "none";
+    }
+});
+
+  
+
+ 
+
+  </script>
+
+    <!-- Main Content -->
+    <main>
+        <div class="weather-container">
+            <h1 class="logo">CUACAKU</h1>
+            <div class="search-box">
+                <input type="text" id="city-input" autocomplete="off" name="text" class="input" placeholder="Masukan Nama Kota...">
+<button id="search-btn" class="btn btn-primary d-flex align-items-center">
+    <i class="bi bi-search"></i> Cari
+  </button>
+  
+            </div>
+          
+
+
+            <div class="map-container">
+                <div class="text-align" >
+                <h2 class="text-lokasi">LOKASI</h2>
+                </div>
+                <div class="map-weather-wrapper">
+                    <!-- Map Section -->
+                    <div id="map">
+                    <div class="info-map">
+                        MAP AKAN MUNCUL DISINI
+                    </div>
+                    </div>
+            
+                    <!-- Weather Info Section -->
+                    <div class="weather-info">
+                        
+                        <div class="info-weather">
+                            <div class="loader" id="loading-indicator"></div> <!-- Loader -->
+                        </div>
+                        <div id="weather-info-container">
+                            <div id="city-name" class="weather-item"></div>
+                            <div id="temperature" class="weather-item"></div>
+                            <div id="description" class="weather-item"></div>
+                            <div id="humidity" class="weather-item"></div>
+                            <div id="wind" class="weather-item"></div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="forecast-container">
+                <h2 style="justify-content: center; text-align: center;">Ramalan 5 Hari ke Depan</h2>
+                <div id="forecast-loader" class="loader-ramalan-container" style="display: none;">
+                    <div class="loader-ramalan"></div>
+                </div>
+                <div class="forecast-table" id="forecast" style="display: none;">
+                </div>
+                
+            </div>
+            
+
+
+        </div>
+
+<div>
+    <button class="button-34" role="button">RESET</button>
+</div>
+
+
+
+<script>
+            document.querySelector(".button-34").addEventListener("click", function () {
+            location.reload();
+
+            setTimeout(function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Halaman berhasil direfresh!',
+                    text: 'Semua data telah direset.',
+                    confirmButtonText: 'OK'
+                });
+            }, 1000);
+        });
+
+    </script>
+
+
+    </main>
+
+    
+
+
+    <!-- Footer -->
+    <div class="footer-basic">
+        <footer>
+            <div class="social">
+                <a href="https://www.instagram.com/dimaschilguy?igsh=anFzYWp1Zm5ybDdl" target="_blank">
+                    <i class="icon ion-social-instagram"></i>
+                </a>
+                <a href="https://youtube.com/@dimaserlansyah?si=zEfi50h_og3KTSfr" target="_blank">
+                    <i class="icon ion-social-youtube"></i>
+                </a>
+                <a href="https://github.com/DimNih" target="_blank">
+                    <i class="icon ion-social-github"></i>
+                </a>
+                <a href="https://www.facebook.com/dimascihuy.boy?mibextid=ZbWKwL" target="_blank">
+                    <i class="icon ion-social-facebook"></i>
+                </a>
+            </div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Home</a></li>
+            </ul>
+            <p class="copyright">CuacaKu © 2025</p>
+        </footer>
+    </div>
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="src/js/main.js"></script>
+
+</body>
+</html>
